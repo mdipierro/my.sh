@@ -1,4 +1,7 @@
 #! /usr/bin/bash
+# Author: Massimo Di Pierro <massimo.dipierro@gmail.com>
+# License: 3-clause BSD, https://opensource.org/license/bsd-3-clause
+
 # install emacs if missing
 which nix-shell || curl -k -L https://nixos.org/nix/install | sh -s -- $daemon
 # make a temp nix shell config

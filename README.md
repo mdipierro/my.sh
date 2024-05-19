@@ -10,7 +10,7 @@ mysh() {
 
 and, in bash, I type `mysh` to enter my environment. I do not install any program ever on the machine as everything I need is provided by Nix.
 
-[](console.png)
+![](console.png)
 
 The script does the following:
 

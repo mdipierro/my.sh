@@ -48,11 +48,6 @@ nix-shell -p rustc
 
 when I need it and it gets added to the existing Nix packages and my shell bumps of on. In folders that contain code with many dependencies I create their own `shell.nix` file.
 
-## Example?
-
-```
-```
-
 ## Warning
 
 This file is for personal use. I am only posting it publicly because I want to access it from everywhere. Also it may be useful to others as an example. I will change this file as my need changes. If you like the idea copy it and modify it but do not rely on this repo.

@@ -35,6 +35,7 @@ let
       pkgs.python311Packages.black
       pkgs.python311Packages.pylint
       pkgs.python311Packages.pytest
+      pkgs.python311Packages.twine
 
       # image tool
       pkgs.imagemagick

@@ -47,7 +47,7 @@ let
 
       # chrome and vscode
       pkgs.ungoogled-chromium
-      pkgs.vscode-fhs
+      pkgs.vscode
       pkgs.vscode-extensions.bbenoist.nix
       pkgs.vscode-extensions.esbenp.prettier-vscode
       pkgs.vscode-extensions.eamodio.gitlens

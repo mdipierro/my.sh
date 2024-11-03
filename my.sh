@@ -16,7 +16,6 @@ let
     buildInputs = [
       # development environment
       pkgs.qemacs
-      pkgs.helix
       pkgs.openssh
       pkgs.zip
       pkgs.mc
@@ -26,6 +25,7 @@ let
       pkgs.tmux
       pkgs.dtach
       pkgs.cmake
+      pkgs.rsync
 
       # python
       pkgs.python312

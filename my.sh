@@ -15,6 +15,7 @@ let
   shell = pkgs.mkShell {
     buildInputs = [
       # development environment
+      pkgs.qemacs
       pkgs.helix
       pkgs.openssh
       pkgs.zip
@@ -22,7 +23,7 @@ let
       pkgs.git
       pkgs.ncdu
       pkgs.htop
-      pkgs.zellij
+      pkgs.tmux
       pkgs.dtach
       pkgs.cmake
 
@@ -63,8 +64,8 @@ let
         export NIX_SHELL_PRESERVE_PROMPT=1
         export SOURCE_DATE_EPOCH=$(date +%s)
         export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
-        export EDITOR=hx
-        export GIT_EDITOR=hx
+        export EDITOR=qe
+        export GIT_EDITOR=qe
       }
       # make or use a venv in ~/.venv for the current dir
       venv() {

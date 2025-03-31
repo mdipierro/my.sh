@@ -8,7 +8,7 @@ which nix-shell || curl -k -L https://nixos.org/nix/install | sh -s -- $daemon
 cat <<\EOF > /tmp/shell.nix
 let
   nixpkgs-src = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/tarball/nixos-24.05";
+    url = "https://github.com/NixOS/nixpkgs/tarball/nixos-24.11";
   };
   pkgs = import nixpkgs-src { config = { allowUnfree = true; }; };
 
@@ -20,12 +20,15 @@ let
       pkgs.zip
       pkgs.mc
       pkgs.git
+      pkgs.git-lfs
       pkgs.ncdu
       pkgs.htop
       pkgs.tmux
       pkgs.dtach
       pkgs.cmake
       pkgs.rsync
+      pkgs.sshfs
+      pkgs.gocryptfs
 
       # python
       pkgs.python312
@@ -36,7 +39,9 @@ let
       pkgs.python312Packages.black
       pkgs.python312Packages.pylint
       pkgs.python312Packages.pytest
+      pkgs.python312Packages.build
       pkgs.python312Packages.twine
+      pkgs.python312Packages.uv
 
       # image tool
       pkgs.imagemagick
@@ -47,7 +52,7 @@ let
       pkgs.openssl
 
       # chrome and vscode
-      pkgs.ungoogled-chromium
+      pkgs.brave
       pkgs.vscode
       pkgs.vscode-extensions.bbenoist.nix
       pkgs.vscode-extensions.esbenp.prettier-vscode
@@ -56,6 +61,10 @@ let
       pkgs.vscode-extensions.ms-vscode-remote.remote-ssh
       pkgs.vscode-extensions.yzhang.markdown-all-in-one
     ];
+
+#    env = {
+#      LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
+#    };
 
     shellHook = ''
       # make a nice looking prompt and env

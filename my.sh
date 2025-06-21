@@ -8,13 +8,14 @@ which nix-shell || curl -k -L https://nixos.org/nix/install | sh -s -- $daemon
 cat <<\EOF > /tmp/shell.nix
 let
   nixpkgs-src = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/tarball/nixos-24.11";
+    url = "https://github.com/NixOS/nixpkgs/tarball/nixos-25.05";
   };
   pkgs = import nixpkgs-src { config = { allowUnfree = true; }; };
 
   shell = pkgs.mkShell {
     buildInputs = [
       # development environment
+      pkgs.glibcLocales
       pkgs.qemacs
       pkgs.openssh
       pkgs.zip
@@ -35,13 +36,6 @@ let
       pkgs.python312Packages.pip
       pkgs.python312Packages.setuptools
       pkgs.python312Packages.wheel
-      pkgs.python312Packages.isort
-      pkgs.python312Packages.black
-      pkgs.python312Packages.pylint
-      pkgs.python312Packages.pytest
-      pkgs.python312Packages.build
-      pkgs.python312Packages.twine
-      pkgs.python312Packages.uv
 
       # image tool
       pkgs.imagemagick
@@ -52,7 +46,7 @@ let
       pkgs.openssl
 
       # chrome and vscode
-      pkgs.brave
+      pkgs.ungoogled-chromium
       pkgs.vscode
       pkgs.vscode-extensions.bbenoist.nix
       pkgs.vscode-extensions.esbenp.prettier-vscode
@@ -61,32 +55,22 @@ let
       pkgs.vscode-extensions.ms-vscode-remote.remote-ssh
       pkgs.vscode-extensions.yzhang.markdown-all-in-one
     ];
-
+    LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
 #    env = {
 #      LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
 #    };
 
     shellHook = ''
+      # install uv
+      export PYTHONPATH=$VENV_PATH/${pkgs.python311.sitePackages}/
+      which uv || curl -LsSf https://astral.sh/uv/install.sh | sh
       # make a nice looking prompt and env
       myprompt() {
         export PS1="\e[30;48;5;214m\u@\h #$SHLVL \w [\$(git branch -q --show-current 2>/dev/null)]\e[0m\n$ "
         export NIX_SHELL_PRESERVE_PROMPT=1
         export SOURCE_DATE_EPOCH=$(date +%s)
-        export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
         export EDITOR=qe
         export GIT_EDITOR=qe
-      }
-      # make or use a venv in ~/.venv for the current dir
-      venv() {
-        VENV_PATH=/home/$USER/.venvs`pwd`/venv${pkgs.python311.version}
-        if test ! -d $VENV_PATH; then
-          python -m venv $VENV_PATH
-        fi
-        if [ -f requirements.txt ]; then
-          $VENV_PATH/bin/pip install -U -r requirements.txt
-        fi
-        source $VENV_PATH/bin/activate
-        export PYTHONPATH=$VENV_PATH/${pkgs.python311.sitePackages}/:$PYTHONPATH
       }
       # remove unwanted files
       cleanup() {

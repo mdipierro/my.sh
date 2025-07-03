@@ -3,6 +3,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 nix-channel --update
 export NIXPKGS_ALLOW_UNFREE=1
 export NIXPKGS_ALLOW_BROKEN=1
+echo "experimental-features = nix-command flakes" > $HOME/.config/nix/nix.conf
 nix-env -iA \
     nixpkgs.glibcLocales \
     nixpkgs.helix \
@@ -10,6 +11,8 @@ nix-env -iA \
     nixpkgs.jed \
     nixpkgs.openssh \
     nixpkgs.zip \
+    nixpkgs.gzip \
+    nixpkgs.gnutar \
     nixpkgs.mc \
     nixpkgs.git \
     nixpkgs.git-lfs \
@@ -26,6 +29,7 @@ nix-env -iA \
     nixpkgs.python312Packages.setuptools \
     nixpkgs.python312Packages.wheel \
     nixpkgs.imagemagick \
+    nixpkgs.masterpdfeditor4 \
     nixpkgs.readline \
     nixpkgs.libffi \
     nixpkgs.openssl \
@@ -38,8 +42,7 @@ nix-env -iA \
     nixpkgs.vscode-extensions.ms-vscode-remote.remote-ssh \
     nixpkgs.vscode-extensions.yzhang.markdown-all-in-one
 
-cat <<EOF >>~/.bashrc
-export EDITOR=qe
-export GIT_EDITOR=qe
-export PS1="\e[30;48;5;214m\u@\h #$SHLVL \w [\$(git branch -q --show-current 2>/dev/null)]\e[0m\n$ "
-EOF
+# export EDITOR=qe
+# export GIT_EDITOR=qe
+# export PS1="\e[30;48;5;214m\u@\h #$SHLVL \w [\$(git branch -q --show-current 2>/dev/null)]\e[0m\n$ "
+

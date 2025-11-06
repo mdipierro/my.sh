@@ -1,4 +1,5 @@
 sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --no-daemon
+# curl -fsS https://dl.brave.com/install.sh | sh
 curl -LsSf https://astral.sh/uv/install.sh | sh
 nix-channel --update
 export NIXPKGS_ALLOW_UNFREE=1
@@ -23,6 +24,7 @@ nix-env -iA \
     nixpkgs.cmake \
     nixpkgs.rsync \
     nixpkgs.sshfs \
+    nixpkgs.ugrep \
     nixpkgs.gocryptfs \
     nixpkgs.python312 \
     nixpkgs.python312Packages.pip \
@@ -44,5 +46,6 @@ nix-env -iA \
 
 # export EDITOR=qe
 # export GIT_EDITOR=qe
+# export NIX_SHELL_PRESERVE_PROMPT=1
 # export PS1="\e[30;48;5;214m\u@\h #$SHLVL \w [\$(git branch -q --show-current 2>/dev/null)]\e[0m\n$ "
 

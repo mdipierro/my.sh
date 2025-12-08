@@ -14,18 +14,24 @@ nix-env -iA \
     nixpkgs.zip \
     nixpkgs.gzip \
     nixpkgs.gnutar \
-    nixpkgs.mc \
     nixpkgs.git \
     nixpkgs.git-lfs \
     nixpkgs.ncdu \
-    nixpkgs.htop \
+    nixpkgs.fzf \
+    nixpkgs.lf \
+    nixpkgs.btop \
+    nixpkgs.bat \
     nixpkgs.tmux \
     nixpkgs.dtach \
     nixpkgs.cmake \
     nixpkgs.rsync \
     nixpkgs.sshfs \
-    nixpkgs.ugrep \
+    nixpkgs.ripgrep \
     nixpkgs.gocryptfs \
+    nixpkgs.maestral \
+    nixpkgs.aichat \
+    nixpkgs.ollama \
+    nixpkgs.llama-cpp \
     nixpkgs.python312 \
     nixpkgs.python312Packages.pip \
     nixpkgs.python312Packages.setuptools \
@@ -42,10 +48,10 @@ nix-env -iA \
     nixpkgs.vscode-extensions.eamodio.gitlens \
     nixpkgs.vscode-extensions.ritwickdey.liveserver \
     nixpkgs.vscode-extensions.ms-vscode-remote.remote-ssh \
-    nixpkgs.vscode-extensions.yzhang.markdown-all-in-one
+    nixpkgs.vscode-extensions.yzhang.markdown-all-in-one \
+    nixpkgs.brave
 
 # export EDITOR=qe
 # export GIT_EDITOR=qe
 # export NIX_SHELL_PRESERVE_PROMPT=1
 # export PS1="\e[30;48;5;214m\u@\h #$SHLVL \w [\$(git branch -q --show-current 2>/dev/null)]\e[0m\n$ "
-

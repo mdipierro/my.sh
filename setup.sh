@@ -18,6 +18,7 @@ nix-env -iA nixpkgs.git-lfs
 nix-env -iA nixpkgs.ncdu
 nix-env -iA nixpkgs.fzf
 nix-env -iA nixpkgs.lf
+nix-env -iA nixpkgs.mc
 nix-env -iA nixpkgs.btop
 nix-env -iA nixpkgs.bat
 nix-env -iA nixpkgs.tmux

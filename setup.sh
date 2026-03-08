@@ -36,6 +36,7 @@ nix-env -iA nixpkgs.imagemagick
 nix-env -iA nixpkgs.readline
 nix-env -iA nixpkgs.libffi
 nix-env -iA nixpkgs.openssl
+nix-env -iA nixpkgs.nodejs_24
 nix-env -iA nixpkgs.masterpdfeditor4    
 nix-env -iA nixpkgs.maestral
 nix-env -iA nixpkgs.aichat

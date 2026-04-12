@@ -49,7 +49,11 @@ fi
 # ---------------------------------------------------------------------------
 if ! command -v uv &>/dev/null; then
   echo ">>> Installing uv..."
-  curl -LsSf https://astral.sh/uv/install.sh | sh
+  # --no-modify-path: skip patching ~/.profile / ~/.bashrc / ~/.bash_profile.
+  # Those files are managed by home-manager (and may be read-only at this
+  # point). ~/.local/bin is already added to PATH by home-manager's
+  # sessionVariables, so no manual PATH patching is needed.
+  curl -LsSf https://astral.sh/uv/install.sh | sh -s -- --no-modify-path
 else
   echo ">>> uv already installed, skipping."
 fi
@@ -247,6 +251,7 @@ cat > "$HOME_MANAGER_DIR/home.nix" << 'EOF'
   programs.bash = {
     enable = true;
     initExtra = ''
+      export PATH="$HOME/.local/bin:$PATH"
       PS1="\e[30;48;5;214m\u@\h #$SHLVL \w [\$(git branch -q --show-current 2>/dev/null)]\e[0m\n$ "
     '';
   };
@@ -302,10 +307,20 @@ fi
 # ---------------------------------------------------------------------------
 # 9. Install Claude Code via npm (Node.js is now available from home-manager)
 #    Kept outside Nix because it self-updates independently.
+#
+#    npm install -g tries to write into the Nix store, which is read-only.
+#    Fix: point npm's global prefix to ~/.local so everything stays in $HOME.
+#
+#    We also add ~/.local/bin to PATH now (home-manager does this for login
+#    shells, but the current script may not have reloaded the profile yet).
 # ---------------------------------------------------------------------------
-if ! command -v claude &>/dev/null; then
-  echo ">>> Installing Claude Code..."
-  npm install -g @anthropic-ai/claude-code
+NPM_PREFIX="$HOME/.local"
+mkdir -p "$NPM_PREFIX/lib" "$NPM_PREFIX/bin"
+export PATH="$NPM_PREFIX/bin:$PATH"
+
+if [ ! -f "$NPM_PREFIX/bin/claude" ]; then
+  echo ">>> Installing Claude Code (npm prefix: $NPM_PREFIX)..."
+  npm install -g --prefix "$NPM_PREFIX" @anthropic-ai/claude-code
 else
   echo ">>> Claude Code already installed, skipping."
 fi
